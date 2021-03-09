@@ -4,14 +4,18 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css">
         <script defer src="index.js"></script>
         <title>Magic The Gathering Deck Builder</title>
     </head>
     <body>
-        <a href="/deckPage.html">deckPage</a>
         <!-- Main Div to hold tabs -->
+        <div class="tab">
+            <button id="search-tab" class="tablinks">Search</button>
+            <button id="deck-tab" class="tablinks">Deck</button>
+        </div>
         <!-- Search Div -->
-        <div>
+        <div class="default-tab">
             <div>
                 <form id="search">
                     <input type="text" placeholder="Name" />
@@ -44,11 +48,11 @@
                         <th>Type</th>
                     </tr>
                 </table>
-                <button id="prev"></button> <button id="next"></button>
+                <button id="prev"> ← </button> <button id="next"> → </button>
             </div>
         </div>
         <!-- Deck Div -->
-        <div>
+        <div class="tabcontent">
             <table id="deck">
                 <tr>
                     <th>Name</th>
