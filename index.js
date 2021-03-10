@@ -150,7 +150,7 @@ function showCard(card, table) {
     let addCard = document.createElement("button");
     addCard.textContent = "+";
     addCard.id = "add-card";
-    // addCard.addEventListener("click", addCardToDeck);
+    addCard.addEventListener("click", addCardToDeck);
 
     row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
 
@@ -212,24 +212,8 @@ function displayMainTab() {
     if (deckDiv.style.display == "block") {
         defaultTab.style.display = "block";
         deckDiv.style.display = "none";
-        console.log("hi");
     }
 }
-
-// class Card {
-//     constructor(name, manaCost, cmc, colors, rarity, set) {
-//         this.name = name;
-//         this.manaCost = manaCost;
-//         this.cmc = cmc;
-//         this.colors = colors;
-//         this.rarity = rarity;
-//         this.set = set;
-//     }
-// }
-
-// function addCardToDeck(){
-//     fetch()
-// }
 
 function enableSingleCollapsible(collapse) {
     collapse.addEventListener("click", function () {
@@ -243,23 +227,58 @@ function enableSingleCollapsible(collapse) {
     });
 }
 
+function displayCard(cardObj, deckContainer) {
+    let cardButton = document.createElement("button");
+    cardButton.type = "button";
+    cardButton.className = "collapsible";
+    cardButton.textContent = `${cardObj.name}         Mana: ${cardObj.manaCost}`;
+
+    let cardDiv = document.createElement("div");
+    cardDiv.className = "content";
+
+    let cardIMG = document.createElement("img");
+    cardIMG.src = cardObj.image;
+    let cardData = document.createElement("p");
+    cardData.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
+
+    cardDiv.append(cardIMG, cardData);
+    deckContainer.append(cardButton, cardDiv);
+    enableSingleCollapsible(cardButton);
+}
+
 function displayAllCards(cardsArray) {
     let deckContainer = document.getElementById("deck-div");
     cardsArray.forEach((cardObj) => {
-        let cardButton = document.createElement("button");
-        cardButton.type = "button";
-        cardButton.className = "collapsible";
-        cardButton.textContent = `${cardObj.name + cardObj.mana}`;
-
-        let cardDiv = document.createElement("div");
-        cardDiv.className = "content";
-
-        // let cardIMG = document.createElement("img");
-        let cardData = document.createElement("p");
-        cardData.textContent = "HELLO";
-
-        cardDiv.append(cardData);
-        deckContainer.append(cardButton, cardDiv);
-        enableSingleCollapsible(cardButton);
+        displayCard(cardObj, deckContainer);
     });
+}
+
+function addCardToDeck(e) {
+    let deckUrl = "http://localhost:3000/deck";
+    let tRow = e.target.parentElement.querySelectorAll("td");
+    let img = tRow[0].querySelector("img");
+    let card = {
+        name: tRow[0].textContent,
+        manaCost: tRow[1].textContent,
+        type: tRow[2].textContent,
+        power: tRow[3].textContent,
+        toughness: tRow[4].textContent,
+        set: tRow[5].textContent,
+        rarity: tRow[6].textContent,
+        image: img.src,
+    };
+    let configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(card),
+    };
+    fetch(deckUrl, configObj)
+        .then((r) => r.json())
+        .then((d) => {
+            let deckContainer = document.getElementById("deck-div");
+            displayCard(d, deckContainer);
+        });
 }
