@@ -1,48 +1,4 @@
 {
   "deck": [
-    {
-      "name": "Bandage",
-      "manaCost": " <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Instant",
-      "power": "",
-      "toughness": "",
-      "set": "10E",
-      "rarity": "Common",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132106&type=card",
-      "id": 1
-    },
-    {
-      "name": "Beacon of Immortality",
-      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Instant",
-      "power": "",
-      "toughness": "",
-      "set": "10E",
-      "rarity": "Rare",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130553&type=card",
-      "id": 2
-    },
-    {
-      "name": "Benalish Knight",
-      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Creature",
-      "power": "2",
-      "toughness": "2",
-      "set": "10E",
-      "rarity": "Common",
-      "image": "http://127.0.0.1:5500/undefined",
-      "id": 3
-    },
-    {
-      "name": "Cho-Manno, Revolutionary",
-      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Creature",
-      "power": "2",
-      "toughness": "2",
-      "set": "10E",
-      "rarity": "Rare",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card",
-      "id": 4
-    }
   ]
 }
