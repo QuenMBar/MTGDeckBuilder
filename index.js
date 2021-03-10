@@ -233,7 +233,7 @@ function displayCard(cardObj, deckContainer) {
     let cardButton = document.createElement("button");
     cardButton.type = "button";
     cardButton.className = "collapsible";
-    cardButton.textContent = `${cardObj.name}         Mana: ${cardObj.manaCost}`;
+    cardButton.innerHTML = `${cardObj.name}    Mana: ${cardObj.manaCost}`;
 
     let cardDiv = document.createElement("div");
     cardDiv.className = "content";
@@ -271,7 +271,7 @@ function addCardToDeck(e) {
     let img = tRow[0].querySelector("img");
     let card = {
         name: tRow[0].textContent,
-        manaCost: tRow[1].textContent,
+        manaCost: tRow[1].innerHTML,
         type: tRow[2].textContent,
         power: tRow[3].textContent,
         toughness: tRow[4].textContent,
