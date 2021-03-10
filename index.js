@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("prev").addEventListener("click", (e) => page(false));
     document.getElementById("next").addEventListener("click", (e) => page(true));
+    
+    getDeck(); 
 
     // Undo this later, but dont need to make so many page requests rn
     // getPageData();
@@ -240,16 +242,26 @@ function addCardToDeck(e){
     }
     fetch(deckUrl, configObj)
     .then(r => r.json())
-    .then(d => addToDeckDisplay(d))
+    .then(card => addToDeckDisplay(card))
 }
 
-function addToDeckDisplay(d){
+function addToDeckDisplay(card){
     let table = document.getElementById("deck")
     let tr = document.createElement("tr")
     let tdName = document.createElement("td")
     let tdMana = document.createElement("td")
-    tdName.textContent = d.name
-    tdMana.textContent = d.manaCost
+    tdName.textContent = card.name
+    tdMana.textContent = card.manaCost
     tr.append(tdName, tdMana)
     table.appendChild(tr)
+}
+
+function getDeck(){
+    fetch("http://localhost:3000/deck")
+    .then(r => r.json())
+    .then(cards => {
+        cards.forEach(card => {
+            addToDeckDisplay(card)
+        })
+    })
 }
