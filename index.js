@@ -1,95 +1,122 @@
 let whiteMana = "./assets/White.png";
 let blueMana = "./assets/Blue.png";
-let blackMana = "./assets/White.png";
+let blackMana = "./assets/Black.png";
 let redMana = "./assets/Red.png";
 let greenMana = "./assets/Green.png";
+let baseURL = "https://api.magicthegathering.io/v1/cards?page=";
+let pageNum = 1;
+let extraURL = "";
+let currentTableStart = ``;
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("search").addEventListener("submit", (e) => {
-        e.preventDefault();
-        let colors = [];
-        if (e.target.white.checked == true) {
-            colors.push("white");
-        }
-        if (e.target.blue.checked == true) {
-            colors.push("blue");
-        }
-        if (e.target.black.checked == true) {
-            colors.push("black");
-        }
-        if (e.target.red.checked == true) {
-            colors.push("red");
-        }
-        if (e.target.green.checked == true) {
-            colors.push("green");
-        }
-        let url = parseURL(
-            e.target.name.value,
-            colors,
-            e.target.orAnd.value,
-            e.target.combineManaCost.value,
-            e.target.type.value,
-            e.target.power.value,
-            e.target.toughness.value,
-            e.target.set.value,
-            e.target.rarity.value
-        );
-        // console.log(url);
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                data.cards.forEach((card) => showCard(card));
-            });
-    });
+    document.getElementById("search").addEventListener("submit", onFormSubmit);
 
-    let deckTab = document.getElementById("deck-tab");
-    deckTab.addEventListener("click", displayDeckTab);
+    document.getElementById("deck-tab").addEventListener("click", displayDeckTab);
 
-    let mainTab = document.getElementById("search-tab");
-    mainTab.addEventListener("click", displayMainTab);
+    document.getElementById("search-tab").addEventListener("click", displayMainTab);
+
+    document.getElementById("prev").addEventListener("click", (e) => page(false));
+    document.getElementById("next").addEventListener("click", (e) => page(true));
+
+    // Undo this later, but dont need to make so many page requests rn
+    // getPageData();
+
+    currentTableStart = document.getElementById("results").innerHTML;
 });
 
-function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rarity, page = 1) {
+function page(direction) {
+    if (direction) {
+        pageNum++;
+        getPageData();
+    } else if (pageNum > 1) {
+        pageNum--;
+        getPageData();
+    }
+}
+
+function onFormSubmit(e) {
+    e.preventDefault();
+    let colors = [];
+    if (e.target.white.checked == true) {
+        colors.push("white");
+    }
+    if (e.target.blue.checked == true) {
+        colors.push("blue");
+    }
+    if (e.target.black.checked == true) {
+        colors.push("black");
+    }
+    if (e.target.red.checked == true) {
+        colors.push("red");
+    }
+    if (e.target.green.checked == true) {
+        colors.push("green");
+    }
+    parseURL(
+        e.target.name.value,
+        colors,
+        e.target.orAnd.value,
+        e.target.combineManaCost.value,
+        e.target.type.value,
+        e.target.power.value,
+        e.target.toughness.value,
+        e.target.set.value,
+        e.target.rarity.value
+    );
+
+    pageNum = 1;
+
+    getPageData();
+}
+
+function getPageData() {
+    fetch(baseURL + pageNum.toString() + extraURL)
+        .then((response) => response.json())
+        .then((data) => {
+            let table = document.getElementById("results");
+            table.innerHTML = currentTableStart;
+            data.cards.forEach((card) => showCard(card, table));
+        });
+}
+
+function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rarity) {
     // console.log(`${name}, ${color}, ${orAnd}, ${manaCost}, ${type}, ${power}, ${toughness}, ${set}, ${rarity}`);
-    let baseURL = `https://api.magicthegathering.io/v1/cards?page=${page}`;
+    extraURL = "";
     if (name != "") {
-        baseURL += `&name=${name}`;
+        extraURL += `&name=${name}`;
     }
     if (color.length != 0) {
-        baseURL += `&colors=${color[0]}`;
+        extraURL += `&colors=${color[0]}`;
         let punctuation = "|";
         if (orAnd === "and") {
             punctuation = ",";
         }
 
         for (let i = 1; i < color.length; i++) {
-            baseURL += `${punctuation}${color[i]}`;
+            extraURL += `${punctuation}${color[i]}`;
         }
     }
     if (manaCost != "") {
-        baseURL += `&cmc=${manaCost}`;
+        extraURL += `&cmc=${manaCost}`;
     }
     if (type != "") {
-        baseURL += `&type=${type}`;
+        extraURL += `&type=${type}`;
     }
     if (power != "") {
-        baseURL += `&power=${power}`;
+        extraURL += `&power=${power}`;
     }
     if (toughness != "") {
-        baseURL += `&toughness=${toughness}`;
+        extraURL += `&toughness=${toughness}`;
     }
     if (set != "") {
-        baseURL += `&set=${set}`;
+        extraURL += `&set=${set}`;
     }
     if (rarity != "") {
-        baseURL += `&rarity=${rarity}`;
+        extraURL += `&rarity=${rarity}`;
     }
-    return baseURL;
 }
 
-function showCard(card) {
-    let table = document.getElementById("results");
-
+function showCard(card, table) {
     let row = document.createElement("tr");
 
     let cardName = document.createElement("td");
