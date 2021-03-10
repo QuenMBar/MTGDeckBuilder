@@ -3,6 +3,7 @@ let blueMana = "./assets/Blue.png";
 let blackMana = "./assets/Black.png";
 let redMana = "./assets/Red.png";
 let greenMana = "./assets/Green.png";
+let colorlessMana = "./assets/Colorless.png";
 let baseURL = "https://api.magicthegathering.io/v1/cards?page=";
 let pageNum = 1;
 let extraURL = "";
@@ -121,6 +122,12 @@ function showCard(card, table) {
 
     let cardName = document.createElement("td");
     cardName.textContent = card.name;
+    cardName.className = "img-tooltip";
+
+    let cardImg = document.createElement("img");
+    cardImg.src = card.imageUrl;
+    cardImg.className = "card-preview";
+    cardName.appendChild(cardImg);
 
     let manaCost = document.createElement("td");
     manaCost.innerHTML = formatManaCost(card.manaCost);
@@ -134,7 +141,7 @@ function showCard(card, table) {
     let cardToughness = document.createElement("td");
     cardToughness.textContent = card.toughness;
 
-    let cardSet= document.createElement("td");
+    let cardSet = document.createElement("td");
     cardSet.textContent = card.set;
 
     let cardRarity = document.createElement("td");
@@ -171,8 +178,11 @@ function formatManaCost(cost) {
             case "G":
                 result += ` <img class="manaImg" src=${greenMana}>`;
                 break;
+            case "C":
+                result += ` <img class="manaImg" src=${colorlessMana}>`;
+                break;
             default:
-                result += cleanCost[i] + ", ";
+                result += cleanCost[i] + "";
         }
     }
     return result;
