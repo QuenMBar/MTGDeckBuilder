@@ -140,7 +140,12 @@ function showCard(card, table) {
     let cardRarity = document.createElement("td");
     cardRarity.textContent = card.rarity;
 
-    row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity);
+    let addCard = document.createElement("button")
+    addCard.textContent = "+"
+    addCard.id = "add-card"
+    addCard.addEventListener('click', addCardToDeck)
+
+    row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
 
     table.appendChild(row);
 }
@@ -200,3 +205,18 @@ function displayMainTab() {
         console.log("hi");
     }
 }
+
+class Card {
+    constructor(name, manaCost, cmc, colors, rarity, set){
+    this.name = name;
+    this.manaCost = manaCost ;
+    this.cmc = cmc;
+    this.colors = colors;
+    this.rarity = rarity;
+    this.set = set;
+}
+}
+
+// function addCardToDeck(){
+//     fetch()
+// }
