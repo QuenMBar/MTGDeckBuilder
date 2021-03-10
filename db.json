@@ -1,4 +1,43 @@
 {
   "deck": [
+    {
+      "name": "Contaminated Bond",
+      "manaCost": "1 <img class=\"manaImg\" src=\"./assets/Black.png\">",
+      "type": "Enchantment",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://127.0.0.1:5500/undefined",
+      "text": "Enchant creature (Target a creature as you cast this. This card enters the battlefield attached to that creature.)\nWhenever enchanted creature attacks or blocks, its controller loses 3 life.",
+      "flavor": "\"My favorite curses are those that manifest slowly, blackening the soul in ways the victim cannot hope to understand.\"\n—Erissa, bog witch",
+      "id": 1
+    },
+    {
+      "name": "Cloud Sprite",
+      "manaCost": " <img class=\"manaImg\" src=\"./assets/Blue.png\">",
+      "type": "Creature",
+      "power": "1",
+      "toughness": "1",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132069&type=card",
+      "text": "Flying (This creature can't be blocked except by creatures with flying or reach.)\nCloud Sprite can block only creatures with flying.",
+      "flavor": "The delicate sprites carry messages for Saprazzans, but they refuse to land in Mercadia City's filthy markets.",
+      "id": 2
+    },
+    {
+      "name": "Air Elemental",
+      "manaCost": "3 <img class=\"manaImg\" src=\"./assets/Blue.png\"> <img class=\"manaImg\" src=\"./assets/Blue.png\">",
+      "type": "Creature",
+      "power": "4",
+      "toughness": "4",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129459&type=card",
+      "text": "Flying",
+      "flavor": "\"The East Wind, an interloper in the dominions of Westerly Weather, is an impassive-faced tyrant with a sharp poniard held behind his back for a treacherous stab.\"\n—Joseph Conrad, *The Mirror of the Sea*",
+      "id": 3
+    }
   ]
 }
