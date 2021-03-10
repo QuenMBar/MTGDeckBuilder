@@ -147,10 +147,10 @@ function showCard(card, table) {
     let cardRarity = document.createElement("td");
     cardRarity.textContent = card.rarity;
 
-    let addCard = document.createElement("button")
-    addCard.textContent = "+"
-    addCard.id = "add-card"
-    addCard.addEventListener('click', addCardToDeck)
+    let addCard = document.createElement("button");
+    addCard.textContent = "+";
+    addCard.id = "add-card";
+    // addCard.addEventListener("click", addCardToDeck);
 
     row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
 
@@ -216,17 +216,50 @@ function displayMainTab() {
     }
 }
 
-class Card {
-    constructor(name, manaCost, cmc, colors, rarity, set){
-    this.name = name;
-    this.manaCost = manaCost ;
-    this.cmc = cmc;
-    this.colors = colors;
-    this.rarity = rarity;
-    this.set = set;
-}
-}
+// class Card {
+//     constructor(name, manaCost, cmc, colors, rarity, set) {
+//         this.name = name;
+//         this.manaCost = manaCost;
+//         this.cmc = cmc;
+//         this.colors = colors;
+//         this.rarity = rarity;
+//         this.set = set;
+//     }
+// }
 
 // function addCardToDeck(){
 //     fetch()
 // }
+
+function enableSingleCollapsible(collapse) {
+    collapse.addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+}
+
+function displayAllCards(cardsArray) {
+    let deckContainer = document.getElementById("deck-div");
+    cardsArray.forEach((cardObj) => {
+        let cardButton = document.createElement("button");
+        cardButton.type = "button";
+        cardButton.className = "collapsible";
+        cardButton.textContent = `${cardObj.name + cardObj.mana}`;
+
+        let cardDiv = document.createElement("div");
+        cardDiv.className = "content";
+
+        // let cardIMG = document.createElement("img");
+        let cardData = document.createElement("p");
+        cardData.textContent = "HELLO";
+
+        cardDiv.append(cardData);
+        deckContainer.append(cardButton, cardDiv);
+        enableSingleCollapsible(cardButton);
+    });
+}
