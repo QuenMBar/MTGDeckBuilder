@@ -1,5 +1,15 @@
 {
-    "deck": [
-      
-    ]
-  }
+  "deck": [
+    {
+      "name": "Ancestor's Chosen",
+      "manaCost": "5  ",
+      "type": "Creature",
+      "power": "4",
+      "toughness": "4",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
+      "id": 1
+    }
+  ]
+}

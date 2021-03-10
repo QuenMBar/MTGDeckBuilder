@@ -219,6 +219,7 @@ function displayMainTab() {
 function addCardToDeck(e){
     let deckUrl = "http://localhost:3000/deck"
     let tRow = e.target.parentElement.querySelectorAll("td")
+    let img = tRow[0].querySelector("img")
     let card = {
         name: tRow[0].textContent,
         manaCost: tRow[1].textContent,
@@ -226,7 +227,8 @@ function addCardToDeck(e){
         power: tRow[3].textContent,
         toughness: tRow[4].textContent,
         set: tRow[5].textContent,
-        rarity: tRow[6].textContent
+        rarity: tRow[6].textContent,
+        image: img.src
     }
     let configObj = {
         method: "POST",
