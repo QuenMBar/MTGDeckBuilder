@@ -1,48 +1,48 @@
 {
   "deck": [
     {
+      "name": "Ancestor's Chosen",
+      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Creature",
+      "power": "4",
+      "toughness": "4",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
+      "id": 1
+    },
+    {
       "name": "Angel of Mercy",
-      "manaCost": "4 ",
+      "manaCost": "4 <img class=\"manaImg\" src=\"./assets/White.png\">",
       "type": "Creature",
       "power": "3",
       "toughness": "3",
       "set": "10E",
       "rarity": "Uncommon",
       "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129465&type=card",
-      "id": 3
+      "id": 2
     },
     {
       "name": "Aven Cloudchaser",
-      "manaCost": "3 ",
+      "manaCost": "3 <img class=\"manaImg\" src=\"./assets/White.png\">",
       "type": "Creature",
       "power": "2",
       "toughness": "2",
       "set": "10E",
       "rarity": "Common",
       "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129470&type=card",
-      "id": 4
+      "id": 3
     },
     {
       "name": "Ballista Squad",
-      "manaCost": "3 ",
+      "manaCost": "3 <img class=\"manaImg\" src=\"./assets/White.png\">",
       "type": "Creature",
       "power": "2",
       "toughness": "2",
       "set": "10E",
       "rarity": "Uncommon",
       "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129477&type=card",
-      "id": 5
-    },
-    {
-      "name": "Bandage",
-      "manaCost": " ",
-      "type": "Instant",
-      "power": "",
-      "toughness": "",
-      "set": "10E",
-      "rarity": "Common",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132106&type=card",
-      "id": 6
+      "id": 4
     }
   ]
 }
