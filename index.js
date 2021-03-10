@@ -101,9 +101,19 @@ function showCard(card) {
     let cardType = document.createElement("td");
     cardType.textContent = card.types;
 
-    row.appendChild(cardName);
-    row.appendChild(manaCost);
-    row.appendChild(cardType);
+    let cardPower = document.createElement("td");
+    cardPower.textContent = card.power;
+
+    let cardToughness = document.createElement("td");
+    cardToughness.textContent = card.toughness;
+
+    let cardSet= document.createElement("td");
+    cardSet.textContent = card.set;
+
+    let cardRarity = document.createElement("td");
+    cardRarity.textContent = card.rarity;
+
+    row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity);
 
     table.appendChild(row);
 }
