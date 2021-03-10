@@ -250,10 +250,15 @@ function addToDeckDisplay(card){
     let tr = document.createElement("tr")
     let tdName = document.createElement("td")
     let tdMana = document.createElement("td")
+    let btn = document.createElement("button")
+    tr.id = card.id
     tdName.textContent = card.name
     tdMana.textContent = card.manaCost
-    tr.append(tdName, tdMana)
+    btn.textContent = "X"
+    tr.append(tdName, tdMana, btn)
     table.appendChild(tr)
+
+    btn.addEventListener('click', removeCard)
 }
 
 function getDeck(){
@@ -264,4 +269,11 @@ function getDeck(){
             addToDeckDisplay(card)
         })
     })
+}
+
+function removeCard(e){
+    let url = `http://localhost:3000/deck/${e.target.parentElement.id}`
+    let parRow = e.target.parentElement
+    parRow.remove();
+    fetch(url, {method: "DELETE"})
 }
