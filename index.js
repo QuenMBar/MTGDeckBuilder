@@ -224,7 +224,7 @@ function addCardToDeck(e){
     let img = tRow[0].querySelector("img")
     let card = {
         name: tRow[0].textContent,
-        manaCost: tRow[1].textContent,
+        manaCost: tRow[1].innerHTML,
         type: tRow[2].textContent,
         power: tRow[3].textContent,
         toughness: tRow[4].textContent,
@@ -253,7 +253,7 @@ function addToDeckDisplay(card){
     let btn = document.createElement("button")
     tr.id = card.id
     tdName.textContent = card.name
-    tdMana.textContent = card.manaCost
+    tdMana.innerHTML = card.manaCost
     btn.textContent = "X"
     tr.append(tdName, tdMana, btn)
     table.appendChild(tr)
