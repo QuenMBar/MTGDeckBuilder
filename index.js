@@ -1,3 +1,9 @@
+let whiteMana = "./assets/White.png";
+let blueMana = "./assets/Blue.png";
+let blackMana = "./assets/White.png";
+let redMana = "./assets/Red.png";
+let greenMana = "./assets/Green.png";
+
 document.addEventListener("submit", (e) => {
     e.preventDefault();
     let colors = [];
@@ -27,11 +33,11 @@ document.addEventListener("submit", (e) => {
         e.target.set.value,
         e.target.rarity.value
     );
-    // console.log(url);
+    console.log(url);
     fetch(url)
-        .then((data) => data.json())
+        .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            data.cards.forEach((card) => showCard(card));
         });
 });
 
@@ -84,4 +90,58 @@ function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rar
         baseURL += `&rarity=${rarity}`;
     }
     return baseURL;
+}
+
+function showCard(card) {
+    let table = document.getElementById("results");
+
+    let row = document.createElement("tr");
+
+    let cardName = document.createElement("td");
+    cardName.textContent = card.name;
+
+    let manaCost = document.createElement("td");
+    manaCost.innerHTML = formatManaCost(card.manaCost);
+
+    let cardType = document.createElement("td");
+    cardType.textContent = card.types;
+
+    row.appendChild(cardName);
+    row.appendChild(manaCost);
+    row.appendChild(cardType);
+
+    table.appendChild(row);
+}
+
+function formatManaCost(cost) {
+    let result = "";
+    let cleanCost = [];
+    let parts = cost.split("");
+    for (let i = 0; i < parts.length; i++) {
+        if (!"{}".includes(parts[i])) {
+            cleanCost.push(parts[i]);
+        }
+    }
+    for (let i = 0; i < cleanCost.length; i++) {
+        switch (cleanCost[i]) {
+            case "W":
+                result += ` <img class="manaImg" src=${whiteMana}>`;
+                break;
+            case "U":
+                result += ` <img class="manaImg" src=${blueMana}>`;
+                break;
+            case "B":
+                result += ` <img class="manaImg" src=${blackMana}>`;
+                break;
+            case "R":
+                result += ` <img class="manaImg" src=${redMana}>`;
+                break;
+            case "G":
+                result += ` <img class="manaImg" src=${greenMana}>`;
+                break;
+            default:
+                result += cleanCost[i];
+        }
+    }
+    return result;
 }
