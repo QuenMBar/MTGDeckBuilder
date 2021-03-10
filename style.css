@@ -35,7 +35,7 @@
   }
 
   .manaImg {
-      height: 16px;
+      height: 15px;
   }
 
   .default-tab {
@@ -43,4 +43,8 @@
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+  }
+
+  table {
+    border-spacing: 20px;
   }

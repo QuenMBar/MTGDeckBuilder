@@ -177,7 +177,7 @@ function formatManaCost(cost) {
                 result += ` <img class="manaImg" src=${greenMana}>`;
                 break;
             default:
-                result += cleanCost[i];
+                result += cleanCost[i] + ", ";
         }
     }
     return result;
