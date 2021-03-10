@@ -128,6 +128,7 @@ function showCard(card, table) {
 
     let cardImg = document.createElement("img");
     cardImg.src = card.imageUrl;
+    cardImg.alt = card.name;
     cardImg.className = "card-preview";
     cardName.appendChild(cardImg);
 
@@ -202,9 +203,14 @@ function displayDeckTab() {
     if (defaultTab.style.display == "") {
         defaultTab.style.display = "none";
         deckDiv.style.display = "block";
+        document.getElementById("deck-tab").style.backgroundColor = "red";
+        document.getElementById("search-tab").style.backgroundColor = "gray";
+
     } else if (defaultTab.style.display == "block") {
         defaultTab.style.display = "none";
         deckDiv.style.display = "block";
+        document.getElementById("deck-tab").style.backgroundColor = "red";
+        document.getElementById("search-tab").style.backgroundColor = "gray";
     }
 }
 
@@ -214,6 +220,8 @@ function displayMainTab() {
     if (deckDiv.style.display == "block") {
         defaultTab.style.display = "block";
         deckDiv.style.display = "none";
+        document.getElementById("deck-tab").style.backgroundColor = "gray";
+        document.getElementById("search-tab").style.backgroundColor = "red";
     }
 }
 
