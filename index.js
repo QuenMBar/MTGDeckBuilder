@@ -124,6 +124,10 @@ function showCard(card, table) {
 
     let cardName = document.createElement("td");
     cardName.textContent = card.name;
+    cardName.data = {
+        text: card.text,
+        flavor: card.flavor,
+    };
     cardName.className = "img-tooltip";
 
     let cardImg = document.createElement("img");
@@ -205,7 +209,6 @@ function displayDeckTab() {
         deckDiv.style.display = "block";
         document.getElementById("deck-tab").style.backgroundColor = "red";
         document.getElementById("search-tab").style.backgroundColor = "gray";
-
     } else if (defaultTab.style.display == "block") {
         defaultTab.style.display = "none";
         deckDiv.style.display = "block";
@@ -241,33 +244,56 @@ function displayCard(cardObj, deckContainer) {
     let cardButton = document.createElement("button");
     cardButton.type = "button";
     cardButton.className = "collapsible";
-    cardButton.innerHTML = `${cardObj.name}    Mana: ${cardObj.manaCost}`;
+
+    let cardName = document.createElement("h2");
+    cardName.textContent = cardObj.name;
+    cardName.className = "cardName";
+    let cardMana = document.createElement("h3");
+    cardMana.innerHTML = `Mana: ${cardObj.manaCost}`;
+    cardMana.className = "cardMana";
+
+    cardButton.append(cardName, cardMana);
 
     let cardDiv = document.createElement("div");
     cardDiv.className = "content";
 
     let cardIMG = document.createElement("img");
     cardIMG.src = cardObj.image;
-    let cardData = document.createElement("p");
-    cardData.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
+    cardIMG.className = "cardIMG";
+
+    let cardDesc = document.createElement("p");
+    cardDesc.innerHTML = `${cardObj.text} <br>${cardObj.flavor}`;
+    cardDesc.className = "cardDesc";
+
+    let cardStats = document.createElement("div");
+    cardStats.className = "cardStats";
+
+    let stats = ["Type", "Power", "Toughness", "Set", "Rarity"];
+    stats.forEach((typeDesc) => {
+        let tempP = document.createElement("p");
+        tempP.textContent = `${typeDesc}: ${cardObj[typeDesc.toLowerCase()]}`;
+        cardStats.append(tempP);
+    });
+    // cardStats.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
 
     let removeButton = document.createElement("button");
     removeButton.textContent = "REMOVE";
     removeButton.id = cardObj.id;
+    removeButton.className = "removeButton";
     removeButton.addEventListener("click", removeCard);
 
     if (!cardIMG.src.includes("undefined")) {
-        cardDiv.append(cardIMG, cardData, removeButton);
-    } else {
-        cardDiv.append(cardData, removeButton);
+        cardDiv.append(cardIMG);
     }
+    cardDiv.append(cardStats, removeButton, cardDesc);
 
     deckContainer.append(cardButton, cardDiv);
     enableSingleCollapsible(cardButton);
 }
 
 function displayAllCards(cardsArray) {
-    let deckContainer = document.getElementById("deck-div");
+    let deckContainer = document.getElementById("cardsDiv");
+    deckContainer.innerHTML = "";
     cardsArray.forEach((cardObj) => {
         displayCard(cardObj, deckContainer);
     });
@@ -286,6 +312,8 @@ function addCardToDeck(e) {
         set: tRow[5].textContent,
         rarity: tRow[6].textContent,
         image: img.src,
+        text: tRow[0].data.text,
+        flavor: tRow[0].data.flavor,
     };
     let configObj = {
         method: "POST",
@@ -298,7 +326,7 @@ function addCardToDeck(e) {
     fetch(deckUrl, configObj)
         .then((r) => r.json())
         .then((d) => {
-            let deckContainer = document.getElementById("deck-div");
+            let deckContainer = document.getElementById("cardsDiv");
             displayCard(d, deckContainer);
         });
 }
