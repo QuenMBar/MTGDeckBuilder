@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("prev").addEventListener("click", (e) => page(false));
     document.getElementById("next").addEventListener("click", (e) => page(true));
-    
-    getDeck(); 
+
+    getDeck();
 
     // Undo this later, but dont need to make so many page requests rn
     // getPageData();
@@ -150,10 +150,10 @@ function showCard(card, table) {
     let cardRarity = document.createElement("td");
     cardRarity.textContent = card.rarity;
 
-    let addCard = document.createElement("button")
-    addCard.textContent = "+"
-    addCard.id = "add-card"
-    addCard.addEventListener('click', addCardToDeck)
+    let addCard = document.createElement("button");
+    addCard.textContent = "+";
+    addCard.id = "add-card";
+    addCard.addEventListener("click", addCardToDeck);
 
     row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
 
@@ -225,11 +225,58 @@ function displayMainTab() {
     }
 }
 
+function enableSingleCollapsible(collapse) {
+    collapse.addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+}
 
-function addCardToDeck(e){
-    let deckUrl = "http://localhost:3000/deck"
-    let tRow = e.target.parentElement.querySelectorAll("td")
-    let img = tRow[0].querySelector("img")
+function displayCard(cardObj, deckContainer) {
+    let cardButton = document.createElement("button");
+    cardButton.type = "button";
+    cardButton.className = "collapsible";
+    cardButton.innerHTML = `${cardObj.name}    Mana: ${cardObj.manaCost}`;
+
+    let cardDiv = document.createElement("div");
+    cardDiv.className = "content";
+
+    let cardIMG = document.createElement("img");
+    cardIMG.src = cardObj.image;
+    let cardData = document.createElement("p");
+    cardData.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
+
+    let removeButton = document.createElement("button");
+    removeButton.textContent = "REMOVE";
+    removeButton.id = cardObj.id;
+    removeButton.addEventListener("click", removeCard);
+
+    if (!cardIMG.src.includes("undefined")) {
+        cardDiv.append(cardIMG, cardData, removeButton);
+    } else {
+        cardDiv.append(cardData, removeButton);
+    }
+
+    deckContainer.append(cardButton, cardDiv);
+    enableSingleCollapsible(cardButton);
+}
+
+function displayAllCards(cardsArray) {
+    let deckContainer = document.getElementById("deck-div");
+    cardsArray.forEach((cardObj) => {
+        displayCard(cardObj, deckContainer);
+    });
+}
+
+function addCardToDeck(e) {
+    let deckUrl = "http://localhost:3000/deck";
+    let tRow = e.target.parentElement.querySelectorAll("td");
+    let img = tRow[0].querySelector("img");
     let card = {
         name: tRow[0].textContent,
         manaCost: tRow[1].innerHTML,
@@ -238,50 +285,37 @@ function addCardToDeck(e){
         toughness: tRow[4].textContent,
         set: tRow[5].textContent,
         rarity: tRow[6].textContent,
-        image: img.src
-    }
+        image: img.src,
+    };
     let configObj = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
         },
-        body: JSON.stringify(card)
-    }
+        body: JSON.stringify(card),
+    };
     fetch(deckUrl, configObj)
-    .then(r => r.json())
-    .then(card => addToDeckDisplay(card))
+        .then((r) => r.json())
+        .then((d) => {
+            let deckContainer = document.getElementById("deck-div");
+            displayCard(d, deckContainer);
+        });
 }
 
-function addToDeckDisplay(card){
-    let table = document.getElementById("deck")
-    let tr = document.createElement("tr")
-    let tdName = document.createElement("td")
-    let tdMana = document.createElement("td")
-    let btn = document.createElement("button")
-    tr.id = card.id
-    tdName.textContent = card.name
-    tdMana.innerHTML = card.manaCost
-    btn.textContent = "X"
-    tr.append(tdName, tdMana, btn)
-    table.appendChild(tr)
-
-    btn.addEventListener('click', removeCard)
-}
-
-function getDeck(){
+function getDeck() {
     fetch("http://localhost:3000/deck")
-    .then(r => r.json())
-    .then(cards => {
-        cards.forEach(card => {
-            addToDeckDisplay(card)
-        })
-    })
+        .then((r) => r.json())
+        .then((cards) => {
+            displayAllCards(cards);
+        });
 }
 
-function removeCard(e){
-    let url = `http://localhost:3000/deck/${e.target.parentElement.id}`
-    let parRow = e.target.parentElement
-    parRow.remove();
-    fetch(url, {method: "DELETE"})
+function removeCard(e) {
+    let url = `http://localhost:3000/deck/${e.target.id}`;
+    let parent = e.target.parentElement;
+    let parentBttn = e.target.parentElement.previousElementSibling;
+    parent.remove();
+    parentBttn.remove();
+    fetch(url, { method: "DELETE" });
 }

@@ -1,47 +1,47 @@
 {
   "deck": [
     {
-      "name": "Ancestor's Chosen",
-      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Creature",
-      "power": "4",
-      "toughness": "4",
+      "name": "Bandage",
+      "manaCost": " <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
       "set": "10E",
-      "rarity": "Uncommon",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
+      "rarity": "Common",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132106&type=card",
       "id": 1
     },
     {
-      "name": "Angel of Mercy",
-      "manaCost": "4 <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Creature",
-      "power": "3",
-      "toughness": "3",
+      "name": "Beacon of Immortality",
+      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
       "set": "10E",
-      "rarity": "Uncommon",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129465&type=card",
+      "rarity": "Rare",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130553&type=card",
       "id": 2
     },
     {
-      "name": "Aven Cloudchaser",
-      "manaCost": "3 <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "name": "Benalish Knight",
+      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\">",
       "type": "Creature",
       "power": "2",
       "toughness": "2",
       "set": "10E",
       "rarity": "Common",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129470&type=card",
+      "image": "http://127.0.0.1:5500/undefined",
       "id": 3
     },
     {
-      "name": "Ballista Squad",
-      "manaCost": "3 <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "name": "Cho-Manno, Revolutionary",
+      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
       "type": "Creature",
       "power": "2",
       "toughness": "2",
       "set": "10E",
-      "rarity": "Uncommon",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129477&type=card",
+      "rarity": "Rare",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card",
       "id": 4
     }
   ]

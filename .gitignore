@@ -10,3 +10,5 @@ tmp
 *.log
 *.swp
 .vscode
+
+db.json
