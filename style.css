@@ -3,15 +3,9 @@ body {
     color: white;
 }
 
-#image-banner {
-    background-image: url("./assets/banner.jpg");
-    background-color:rgb(32, 32, 32);
-    background-size: cover;
-    min-height: 500px;
-    background-attachment: fixed;
-    background-position: 0px -200px;
-    background-repeat: no-repeat;
-    background-size: cover;
+#image-banner img {
+    width: 100%;
+    height: auto;
 }
 
 /* Style the tab */
