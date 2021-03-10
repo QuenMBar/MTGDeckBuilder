@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("prev").addEventListener("click", (e) => page(false));
     document.getElementById("next").addEventListener("click", (e) => page(true));
 
+    getDeck();
+
     // Undo this later, but dont need to make so many page requests rn
     // getPageData();
 
@@ -241,7 +243,17 @@ function displayCard(cardObj, deckContainer) {
     let cardData = document.createElement("p");
     cardData.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
 
-    cardDiv.append(cardIMG, cardData);
+    let removeButton = document.createElement("button");
+    removeButton.textContent = "REMOVE";
+    removeButton.id = cardObj.id;
+    removeButton.addEventListener("click", removeCard);
+
+    if (!cardIMG.src.includes("undefined")) {
+        cardDiv.append(cardIMG, cardData, removeButton);
+    } else {
+        cardDiv.append(cardData, removeButton);
+    }
+
     deckContainer.append(cardButton, cardDiv);
     enableSingleCollapsible(cardButton);
 }
@@ -281,4 +293,21 @@ function addCardToDeck(e) {
             let deckContainer = document.getElementById("deck-div");
             displayCard(d, deckContainer);
         });
+}
+
+function getDeck() {
+    fetch("http://localhost:3000/deck")
+        .then((r) => r.json())
+        .then((cards) => {
+            displayAllCards(cards);
+        });
+}
+
+function removeCard(e) {
+    let url = `http://localhost:3000/deck/${e.target.id}`;
+    let parent = e.target.parentElement;
+    let parentBttn = e.target.parentElement.previousElementSibling;
+    parent.remove();
+    parentBttn.remove();
+    fetch(url, { method: "DELETE" });
 }
