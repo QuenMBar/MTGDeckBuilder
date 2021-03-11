@@ -261,8 +261,8 @@ function displayCard(cardObj, deckContainer) {
     cardIMG.src = cardObj.image;
     cardIMG.className = "cardIMG";
 
-    let cardDesc = document.createElement("p");
-    cardDesc.innerHTML = `${cardObj.text} <br>${cardObj.flavor}`;
+    let cardDesc = document.createElement("div");
+    cardDesc.innerHTML = `<p class="cardText">${cardObj.text}</p> <p>${cardObj.flavor}</p>`;
     cardDesc.className = "cardDesc";
 
     let cardStats = document.createElement("div");
@@ -274,18 +274,26 @@ function displayCard(cardObj, deckContainer) {
         tempP.textContent = `${typeDesc}: ${cardObj[typeDesc.toLowerCase()]}`;
         cardStats.append(tempP);
     });
-    // cardStats.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
+    let statsDiv = document.createElement("div");
+    statsDiv.className = "statsDivNoImg";
+
+    let statsHeader = document.createElement("p");
+    statsHeader.textContent = "Stats: ";
+    statsHeader.className = "statsHeader";
+
+    statsDiv.append(statsHeader, cardStats);
 
     let removeButton = document.createElement("button");
-    removeButton.textContent = "REMOVE";
+    removeButton.textContent = "Remove Card";
     removeButton.id = cardObj.id;
     removeButton.className = "removeButton";
     removeButton.addEventListener("click", removeCard);
 
     if (!cardIMG.src.includes("undefined")) {
         cardDiv.append(cardIMG);
+        statsDiv.className = "statsDiv";
     }
-    cardDiv.append(cardStats, removeButton, cardDesc);
+    cardDiv.append(statsDiv, removeButton, cardDesc);
 
     deckContainer.append(cardButton, cardDiv);
     enableSingleCollapsible(cardButton);
