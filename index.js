@@ -272,7 +272,11 @@ function displayCard(cardObj, deckContainer) {
     cardIMG.className = "cardIMG";
 
     let cardDesc = document.createElement("div");
-    cardDesc.innerHTML = `<p class="cardText">${cardObj.text}</p> <p>${cardObj.flavor}</p>`;
+    if (cardObj.flavor === undefined) {
+        cardDesc.innerHTML = `<p class="cardText">${cardObj.text}</p>`;
+    } else {
+        cardDesc.innerHTML = `<p class="cardText">${cardObj.text}</p> <p>${cardObj.flavor}</p>`;
+    }
     cardDesc.className = "cardDesc";
 
     let cardStats = document.createElement("div");
@@ -281,7 +285,11 @@ function displayCard(cardObj, deckContainer) {
     let stats = ["Type", "Power", "Toughness", "Set", "Rarity"];
     stats.forEach((typeDesc) => {
         let tempP = document.createElement("p");
-        tempP.textContent = `${typeDesc}: ${cardObj[typeDesc.toLowerCase()]}`;
+        if (cardObj[typeDesc.toLowerCase()] === "") {
+            tempP.textContent = `${typeDesc}: N/A`;
+        } else {
+            tempP.textContent = `${typeDesc}: ${cardObj[typeDesc.toLowerCase()]}`;
+        }
         cardStats.append(tempP);
     });
     let statsDiv = document.createElement("div");
