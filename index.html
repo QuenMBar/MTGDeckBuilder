@@ -1,77 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <script src="index.js"></script>
-        <title>MTG Deck Builder</title>
-    </head>
-    <body>
-        <div id="image-banner">
-            <img src="assets/banner.jpg" alt="MTG Banner" />
-        </div>
-        <!-- Main Div to hold tabs -->
-        <div class="tab">
-            <button id="search-tab" class="tablinks">Search</button>
-            <button id="deck-tab" class="tablinks">Deck</button>
-        </div>
-        <!-- Search Div -->
-        <div class="default-tab" id="main-tab">
-            <div>
-                <form id="search">
-                    <input type="text" name="name" placeholder="Name" />
-                    <div>
-                        <input type="checkbox" name="white" value="white" />
-                        <label for="white"> White</label>
-                        <input type="checkbox" name="blue" value="blue" />
-                        <label for="blue"> Blue</label>
-                        <input type="checkbox" name="black" value="black" />
-                        <label for="black"> Black</label>
-                        <input type="checkbox" name="red" value="red" />
-                        <label for="red"> Red</label>
-                        <input type="checkbox" name="green" value="green" />
-                        <label for="green"> Green</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="orAnd" value="or" checked />
-                        <label for="or">OR</label>
 
-                        <input type="radio" name="orAnd" value="and" />
-                        <label for="and">AND</label>
-                    </div>
-                    <input type="text" name="combineManaCost" pattern="^\d*$" placeholder="Combined Mana Cost" />
-                    <input type="text" name="type" placeholder="Card Type" />
-                    <input type="text" name="power" pattern="^([1-2]?[0-9]|x){0,1}$" placeholder="Power" />
-                    <input type="text" name="toughness" pattern="^([1-2]?[0-9]|x){0,1}$" placeholder="Toughness" />
-                    <input type="text" name="set" placeholder="Card Set" />
-                    <input type="text" name="rarity" placeholder="Rarity" />
-                    <input type="submit" />
-                </form>
-            </div>
-            <div>
-                <table id="results">
-                    <tr>
-                        <th>Name</th>
-                        <th>Mana Cost</th>
-                        <th>Type</th>
-                        <th>Power</th>
-                        <th>Toughness</th>
-                        <th>Set</th>
-                        <th>Rarity</th>
-                    </tr>
-                </table>
-                <button id="prev">←</button> <button id="next">→</button>
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js"></script>
+    <title>MTG Deck Builder</title>
+</head>
+
+<body>
+    <div id="image-banner">
+        <img src="assets/banner.jpg" alt="MTG Banner" />
+    </div>
+    <!-- Main Div to hold tabs -->
+    <div class="tab">
+        <button id="search-tab" class="tablinks">Search</button>
+        <button id="deck-tab" class="tablinks">Deck</button>
+    </div>
+    <!-- Search Div -->
+    <div class="default-tab" id="main-tab">
+        <div>
+            <form id="search">
+                <input type="text" name="name" placeholder="Name" />
+                <div>
+                    <input type="checkbox" name="white" value="white" />
+                    <label for="white"> White</label>
+                    <input type="checkbox" name="blue" value="blue" />
+                    <label for="blue"> Blue</label>
+                    <input type="checkbox" name="black" value="black" />
+                    <label for="black"> Black</label>
+                    <input type="checkbox" name="red" value="red" />
+                    <label for="red"> Red</label>
+                    <input type="checkbox" name="green" value="green" />
+                    <label for="green"> Green</label>
+                </div>
+                <div>
+                    <input type="radio" name="orAnd" value="or" checked />
+                    <label for="or">OR</label>
+
+                    <input type="radio" name="orAnd" value="and" />
+                    <label for="and">AND</label>
+                </div>
+                <input type="text" name="combineManaCost" pattern="^\d*$" placeholder="Combined Mana Cost" />
+                <input type="text" name="type" placeholder="Card Type" />
+                <input type="text" name="power" pattern="^([1-2]?[0-9]|x){0,1}$" placeholder="Power" />
+                <input type="text" name="toughness" pattern="^([1-2]?[0-9]|x){0,1}$" placeholder="Toughness" />
+                <input type="text" name="set" placeholder="Card Set" />
+                <input type="text" name="rarity" placeholder="Rarity" />
+                <input type="submit" value="Search" />
+            </form>
+            <button id="clear-search">Clear</button>
         </div>
-        <!-- Deck Div -->
+        <div>
+            <table id="results">
+                <tr>
+                    <th>Name</th>
+                    <th>Mana Cost</th>
+                    <th>Type</th>
+                    <th>Power</th>
+                    <th>Toughness</th>
+                    <th>Set</th>
+                    <th>Rarity</th>
+                </tr>
+            </table>
+            <button id="prev">←</button> <button id="next">→</button>
+        </div>
+    </div>
+    <!-- Deck Div -->
         <div class="tabcontent" id="deck-div">
             <button id="create-deck">New Deck</button>
             <select name="decks" id="decklist">
-                <option value="default-deck" data-id="1">Default Deck</option>
             </select>
             <div id="cardsDiv"></div>
         </div>
-    </body>
+</body>
+
 </html>

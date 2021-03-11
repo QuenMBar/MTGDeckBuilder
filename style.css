@@ -51,6 +51,7 @@ body {
 
 #search {
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .manaImg {
@@ -205,3 +206,4 @@ tr:hover {
     line-height: 40px;
     font-size:large;
 }
+
