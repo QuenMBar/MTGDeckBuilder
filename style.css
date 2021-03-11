@@ -115,6 +115,9 @@ tr:hover {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+    /* border: 2px solid #1C6EA4; */
+    /* align-items: center */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .collapsible:after {
@@ -140,7 +143,67 @@ tr:hover {
     padding-left: 20px;
 }
 
-.cardIMG .cardStats .card {
-    display: inline
+.cardIMG,
+.removeButton,
+.statsDiv,
+.statsDivNoImg {
+    display:inline-block;
+    /* border: 2px solid #1C6EA4; */
+}
+
+.cardIMG {
+    margin: 20px;
+}
+
+.removeButton {
+    float: right;
+    margin-right: 10vw;
+    margin-top: 40px;
+}
+
+.removeButton {
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    line-height: 16px;
+    padding: 5px;
+    background-color: rgb(196, 43, 43);
+    border: 2px solid rgb(133, 26, 26);
+    display: inline-block;
+}
+
+.removeButton:hover {
+    background:rgb(177, 25, 25);
+}
+
+.statsDivNoImg {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.statsHeader {
+    font-weight: 700;
+    font-size: x-large;
+}
+
+.cardStats{
+    font-size: large;
+    padding-left: 50px;
+}
+
+.statsDiv {
+    margin-left: 50px;
+    position: relative;
+    bottom: 80px
+}
+
+.cardText {
+    font-size:larger;
+}
+
+.cardDesc {
+    margin-left: 20px;
+    padding-bottom: 20px;
+    line-height: 40px;
+    font-size:large;
 }
 
