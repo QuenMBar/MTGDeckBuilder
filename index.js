@@ -13,12 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search").addEventListener("submit", onFormSubmit);
 
     document.getElementById("deck-tab").addEventListener("click", displayDeckTab);
-
     document.getElementById("search-tab").addEventListener("click", displayMainTab);
 
     document.getElementById("prev").addEventListener("click", (e) => page(false));
     document.getElementById("next").addEventListener("click", (e) => page(true));
 
+    document.getElementById("create-deck").addEventListener('click', newDeckList)
+    document.getElementById("decklist").addEventListener("change", displayDeck)
+    
     getDeck();
 
     // Undo this later, but dont need to make so many page requests rn
@@ -124,10 +126,6 @@ function showCard(card, table) {
 
     let cardName = document.createElement("td");
     cardName.textContent = card.name;
-    cardName.data = {
-        text: card.text,
-        flavor: card.flavor,
-    };
     cardName.className = "img-tooltip";
 
     let cardImg = document.createElement("img");
@@ -210,6 +208,7 @@ function displayDeckTab() {
         deckDiv.style.display = "block";
         document.getElementById("deck-tab").style.backgroundColor = "red";
         document.getElementById("search-tab").style.backgroundColor = "gray";
+
     } else if (defaultTab.style.display == "block") {
         defaultTab.style.display = "none";
         deckDiv.style.display = "block";
@@ -217,6 +216,7 @@ function displayDeckTab() {
         document.getElementById("search-tab").style.backgroundColor = "gray";
     }
 }
+
 
 function displayMainTab() {
     let defaultTab = document.getElementById("main-tab");
@@ -228,6 +228,7 @@ function displayMainTab() {
         document.getElementById("search-tab").style.backgroundColor = "red";
     }
 }
+
 
 function enableSingleCollapsible(collapse) {
     collapse.addEventListener("click", function () {
@@ -245,48 +246,26 @@ function displayCard(cardObj, deckContainer) {
     let cardButton = document.createElement("button");
     cardButton.type = "button";
     cardButton.className = "collapsible";
-
-    let cardName = document.createElement("h2");
-    cardName.textContent = cardObj.name;
-    cardName.className = "cardName";
-    let cardMana = document.createElement("h3");
-    cardMana.innerHTML = `Mana: ${cardObj.manaCost}`;
-    cardMana.className = "cardMana";
-
-    cardButton.append(cardName, cardMana);
+    cardButton.innerHTML = `${cardObj.name}    Mana: ${cardObj.manaCost}`;
 
     let cardDiv = document.createElement("div");
     cardDiv.className = "content";
 
     let cardIMG = document.createElement("img");
     cardIMG.src = cardObj.image;
-    cardIMG.className = "cardIMG";
-
-    let cardDesc = document.createElement("p");
-    cardDesc.innerHTML = `${cardObj.text} <br>${cardObj.flavor}`;
-    cardDesc.className = "cardDesc";
-
-    let cardStats = document.createElement("div");
-    cardStats.className = "cardStats";
-
-    let stats = ["Type", "Power", "Toughness", "Set", "Rarity"];
-    stats.forEach((typeDesc) => {
-        let tempP = document.createElement("p");
-        tempP.textContent = `${typeDesc}: ${cardObj[typeDesc.toLowerCase()]}`;
-        cardStats.append(tempP);
-    });
-    // cardStats.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
+    let cardData = document.createElement("p");
+    cardData.innerHTML = `Type: ${cardObj.type} <br>Power: ${cardObj.power} <br>Toughness: ${cardObj.toughness} <br>Set: ${cardObj.set} <br>Rarity: ${cardObj.rarity}`;
 
     let removeButton = document.createElement("button");
     removeButton.textContent = "REMOVE";
     removeButton.id = cardObj.id;
-    removeButton.className = "removeButton";
     removeButton.addEventListener("click", removeCard);
 
     if (!cardIMG.src.includes("undefined")) {
-        cardDiv.append(cardIMG);
+        cardDiv.append(cardIMG, cardData, removeButton);
+    } else {
+        cardDiv.append(cardData, removeButton);
     }
-    cardDiv.append(cardStats, removeButton, cardDesc);
 
     deckContainer.append(cardButton, cardDiv);
     enableSingleCollapsible(cardButton);
@@ -294,16 +273,17 @@ function displayCard(cardObj, deckContainer) {
 
 function displayAllCards(cardsArray) {
     let deckContainer = document.getElementById("cardsDiv");
-    deckContainer.innerHTML = "";
+    deckContainer.innerHTML = ""
     cardsArray.forEach((cardObj) => {
         displayCard(cardObj, deckContainer);
     });
 }
 
 function addCardToDeck(e) {
-    let deckUrl = "http://localhost:3000/deck";
+    let deckUrl = "http://localhost:3000/cards";
     let tRow = e.target.parentElement.querySelectorAll("td");
     let img = tRow[0].querySelector("img");
+    let select =  document.getElementById("decklist").selectedOptions
     let card = {
         name: tRow[0].textContent,
         manaCost: tRow[1].innerHTML,
@@ -313,8 +293,7 @@ function addCardToDeck(e) {
         set: tRow[5].textContent,
         rarity: tRow[6].textContent,
         image: img.src,
-        text: tRow[0].data.text,
-        flavor: tRow[0].data.flavor,
+        deckId: parseInt(select[0].value)
     };
     let configObj = {
         method: "POST",
@@ -327,13 +306,13 @@ function addCardToDeck(e) {
     fetch(deckUrl, configObj)
         .then((r) => r.json())
         .then((d) => {
-            let deckContainer = document.getElementById("cardsDiv");
+            let deckContainer = document.getElementById("deck-div");
             displayCard(d, deckContainer);
         });
 }
 
 function getDeck() {
-    fetch("http://localhost:3000/deck")
+    fetch("http://localhost:3000/cards?deckId=1")
         .then((r) => r.json())
         .then((cards) => {
             displayAllCards(cards);
@@ -347,4 +326,37 @@ function removeCard(e) {
     parent.remove();
     parentBttn.remove();
     fetch(url, { method: "DELETE" });
+}
+
+function newDeckList(){
+    let deckname = window.prompt("Enter Deck Name", "Deck Name")
+    let select = document.getElementById("decklist")
+    let opt = document.createElement("option")
+    opt.value = deckname
+    opt.textContent = deckname
+    select.appendChild(opt)
+    let deckUrl = "http://localhost:3000/deck"
+    let deck = {name: deckname}
+    let configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(deck),
+    }
+    fetch(deckUrl, configObj)
+    .then(r => r.json())
+    .then(deck => {
+        opt.value = deck.id
+    })
+}
+
+function displayDeck(){
+    let select =  document.getElementById("decklist").selectedOptions
+    fetch(`http://localhost:3000/cards?deckId=${select[0].value}`)
+    .then((r) => r.json())
+    .then((cards) => {
+        displayAllCards(cards);
+    });
 }
