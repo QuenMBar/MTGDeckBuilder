@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("clear-search").addEventListener("click", () => clearSearch());
     document.getElementById("create-deck").addEventListener("click", newDeckList);
     document.getElementById("decklist").addEventListener("change", displayDeck);
+    document.getElementById("RandomDeck").addEventListener("click", createRandomDeck);
 
     getDeck();
     createDeckOptions();
@@ -344,7 +345,7 @@ function displayCard(cardObj, deckContainer) {
     removeButton.className = "removeButton";
     removeButton.addEventListener("click", removeCard);
 
-    if (!cardIMG.src.includes("undefined")) {
+    if (!cardIMG.src.includes("undefined") || cardIMG.src === "") {
         cardDiv.append(cardIMG);
         statsDiv.className = "statsDiv";
     }
@@ -433,20 +434,25 @@ function removeCard(e) {
  * Creates a new deck to add cards to.  Makes a pop up for deck name
  */
 function newDeckList() {
-    let deckname = window.prompt("Enter Deck Name", "Deck Name");
-    let deckUrl = "http://localhost:3000/deck";
-    let deck = { name: deckname };
-    let configObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify(deck),
-    };
-    fetch(deckUrl, configObj)
-        .then((r) => r.json())
-        .then((deck) => buildDeckOption(deck));
+    return new Promise((resolve) => {
+        let deckname = window.prompt("Enter Deck Name", "Deck Name");
+        let deckUrl = "http://localhost:3000/deck";
+        let deck = { name: deckname };
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(deck),
+        };
+        fetch(deckUrl, configObj)
+            .then((r) => r.json())
+            .then((deck) => {
+                buildDeckOption(deck);
+                resolve(deck.id);
+            });
+    });
 }
 
 /**
@@ -483,4 +489,46 @@ function createDeckOptions() {
         .then((decks) => {
             decks.forEach((deck) => buildDeckOption(deck));
         });
+}
+
+async function createRandomDeck() {
+    let response = await fetch("https://api.magicthegathering.io/v1/cards?page=1&random=true");
+    let wrappedData = await response.json();
+    let data = wrappedData.cards;
+    let deckID = await newDeckList();
+    let deckUrl = "http://localhost:3000/cards";
+    for (let i = 0; i < 60; i++) {
+        let manaCostHTML = ``;
+        if (data[i].manaCost != "Land" && data[i].manaCost != undefined) {
+            manaCostHTML = formatManaCost(data[i].manaCost);
+        }
+        let newCard = {
+            name: data[i].name,
+            manaCost: manaCostHTML,
+            type: data[i].type,
+            power: data[i].power,
+            toughness: data[i].toughness,
+            set: data[i].set,
+            rarity: data[i].rarity,
+            image: data[i].imageUrl,
+            text: data[i].text,
+            flavor: data[i].flavor,
+            deckId: deckID,
+        };
+        console.log(newCard);
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(newCard),
+        };
+        await fetch(deckUrl, configObj);
+        await sleep(3);
+    }
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
