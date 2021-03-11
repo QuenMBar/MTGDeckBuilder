@@ -73,6 +73,10 @@ th {
     border-bottom: 1px solid #ccc;
 }
 
+tr:hover {
+    background-color: rgb(64, 64, 64);
+}
+
 /* Card image tooltips */
 .img-tooltip .card-preview {
     visibility: hidden;

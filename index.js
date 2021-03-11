@@ -13,11 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search").addEventListener("submit", onFormSubmit);
 
     document.getElementById("deck-tab").addEventListener("click", displayDeckTab);
-
     document.getElementById("search-tab").addEventListener("click", displayMainTab);
 
     document.getElementById("prev").addEventListener("click", (e) => page(false));
     document.getElementById("next").addEventListener("click", (e) => page(true));
+
+    document.getElementById("create-deck").addEventListener("click", newDeckList);
+    document.getElementById("decklist").addEventListener("change", displayDeck);
 
     getDeck();
 
@@ -124,10 +126,6 @@ function showCard(card, table) {
 
     let cardName = document.createElement("td");
     cardName.textContent = card.name;
-    cardName.data = {
-        text: card.text,
-        flavor: card.flavor,
-    };
     cardName.className = "img-tooltip";
 
     let cardImg = document.createElement("img");
@@ -137,7 +135,9 @@ function showCard(card, table) {
     cardName.appendChild(cardImg);
 
     let manaCost = document.createElement("td");
-    manaCost.innerHTML = formatManaCost(card.manaCost);
+    if (card.types[0] != "Land") {
+        manaCost.innerHTML = formatManaCost(card.manaCost);
+    }
 
     let cardType = document.createElement("td");
     cardType.textContent = card.types;
@@ -203,7 +203,6 @@ function formatManaCost(cost) {
 function displayDeckTab() {
     let defaultTab = document.getElementById("main-tab");
     let deckDiv = document.getElementById("deck-div");
-    // console.log(defaultTab.style.display)
     if (defaultTab.style.display == "") {
         defaultTab.style.display = "none";
         deckDiv.style.display = "block";
@@ -244,15 +243,7 @@ function displayCard(cardObj, deckContainer) {
     let cardButton = document.createElement("button");
     cardButton.type = "button";
     cardButton.className = "collapsible";
-
-    let cardName = document.createElement("h2");
-    cardName.textContent = cardObj.name;
-    cardName.className = "cardName";
-    let cardMana = document.createElement("h3");
-    cardMana.innerHTML = `Mana: ${cardObj.manaCost}`;
-    cardMana.className = "cardMana";
-
-    cardButton.append(cardName, cardMana);
+    cardButton.innerHTML = `${cardObj.name}    Mana: ${cardObj.manaCost}`;
 
     let cardDiv = document.createElement("div");
     cardDiv.className = "content";
@@ -286,7 +277,6 @@ function displayCard(cardObj, deckContainer) {
     let removeButton = document.createElement("button");
     removeButton.textContent = "Remove Card";
     removeButton.id = cardObj.id;
-    removeButton.className = "removeButton";
     removeButton.addEventListener("click", removeCard);
 
     if (!cardIMG.src.includes("undefined")) {
@@ -308,9 +298,10 @@ function displayAllCards(cardsArray) {
 }
 
 function addCardToDeck(e) {
-    let deckUrl = "http://localhost:3000/deck";
+    let deckUrl = "http://localhost:3000/cards";
     let tRow = e.target.parentElement.querySelectorAll("td");
     let img = tRow[0].querySelector("img");
+    let select = document.getElementById("decklist").selectedOptions;
     let card = {
         name: tRow[0].textContent,
         manaCost: tRow[1].innerHTML,
@@ -320,8 +311,7 @@ function addCardToDeck(e) {
         set: tRow[5].textContent,
         rarity: tRow[6].textContent,
         image: img.src,
-        text: tRow[0].data.text,
-        flavor: tRow[0].data.flavor,
+        deckId: parseInt(select[0].value),
     };
     let configObj = {
         method: "POST",
@@ -334,13 +324,13 @@ function addCardToDeck(e) {
     fetch(deckUrl, configObj)
         .then((r) => r.json())
         .then((d) => {
-            let deckContainer = document.getElementById("cardsDiv");
+            let deckContainer = document.getElementById("deck-div");
             displayCard(d, deckContainer);
         });
 }
 
 function getDeck() {
-    fetch("http://localhost:3000/deck")
+    fetch("http://localhost:3000/cards?deckId=1")
         .then((r) => r.json())
         .then((cards) => {
             displayAllCards(cards);
@@ -354,4 +344,37 @@ function removeCard(e) {
     parent.remove();
     parentBttn.remove();
     fetch(url, { method: "DELETE" });
+}
+
+function newDeckList() {
+    let deckname = window.prompt("Enter Deck Name", "Deck Name");
+    let select = document.getElementById("decklist");
+    let opt = document.createElement("option");
+    opt.value = deckname;
+    opt.textContent = deckname;
+    select.appendChild(opt);
+    let deckUrl = "http://localhost:3000/deck";
+    let deck = { name: deckname };
+    let configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(deck),
+    };
+    fetch(deckUrl, configObj)
+        .then((r) => r.json())
+        .then((deck) => {
+            opt.value = deck.id;
+        });
+}
+
+function displayDeck() {
+    let select = document.getElementById("decklist").selectedOptions;
+    fetch(`http://localhost:3000/cards?deckId=${select[0].value}`)
+        .then((r) => r.json())
+        .then((cards) => {
+            displayAllCards(cards);
+        });
 }

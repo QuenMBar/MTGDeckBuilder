@@ -1,30 +1,6 @@
 {
   "deck": [
-    {
-      "name": "Bandage",
-      "manaCost": " <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Instant",
-      "power": "",
-      "toughness": "",
-      "set": "10E",
-      "rarity": "Common",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132106&type=card",
-      "text": "Prevent the next 1 damage that would be dealt to any target this turn.\nDraw a card.",
-      "flavor": "Life is measured in inches. To a healer, every one of those inches is precious.",
-      "id": 1
-    },
-    {
-      "name": "Benalish Knight",
-      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\">",
-      "type": "Creature",
-      "power": "2",
-      "toughness": "2",
-      "set": "10E",
-      "rarity": "Common",
-      "image": "http://127.0.0.1:5500/undefined",
-      "text": "Flash (You may cast this spell any time you could cast an instant.)\nFirst strike (This creature deals combat damage before creatures without first strike.)",
-      "flavor": "\"We called them 'armored lightning.'\"\n—Gerrard of the *Weatherlight*",
-      "id": 2
-    }
+  ],
+  "cards": [
   ]
 }
