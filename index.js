@@ -152,15 +152,6 @@ function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rar
 /**
  * Creates a row for the card and appends it to the table
  * @param {Object} card A card object gotten from the api call
- * @param {string} card.name
- * @param {string} card.text
- * @param {string} card.flavor
- * @param {string} card.imageUrl
- * @param {string} card.type
- * @param {string} card.power
- * @param {string} card.toughness
- * @param {string} card.set
- * @param {string} card.rarity
  * @param {HTMLTableElement} table The table it is being appended to
  */
 function showCard(card, table) {
@@ -312,17 +303,6 @@ function enableSingleCollapsible(collapse) {
 /**
  * Uses a card to create the compatibles that populate the deck tab
  * @param {Object} cardObj Gotten from the local database
- * @param {string} cardObj.name
- * @param {string} cardObj.manaCost
- * @param {string} cardObj.image
- * @param {string} cardObj.flavor
- * @param {string} cardObj.text
- * @param {string} cardObj.type
- * @param {string} cardObj.power
- * @param {string} cardObj.toughness
- * @param {string} cardObj.set
- * @param {string} cardObj.rarity
- * @param {number} cardObj.id
  * @param {HTMLDivElement} deckContainer
  */
 function displayCard(cardObj, deckContainer) {
