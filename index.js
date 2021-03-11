@@ -335,7 +335,7 @@ function addCardToDeck(e) {
     fetch(deckUrl, configObj)
         .then((r) => r.json())
         .then((d) => {
-            let deckContainer = document.getElementById("deck-div");
+            let deckContainer = document.getElementById("cardsDiv");
             displayCard(d, deckContainer);
         });
 }
