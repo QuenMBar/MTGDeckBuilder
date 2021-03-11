@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("prev").addEventListener("click", (e) => page(false));
     document.getElementById("next").addEventListener("click", (e) => page(true));
 
+    document.getElementById("clear-search").addEventListener("click", () => clearSearch());
     getDeck();
 
     // Undo this later, but dont need to make so many page requests rn
@@ -164,6 +165,11 @@ function showCard(card, table) {
     row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
 
     table.appendChild(row);
+}
+
+function clearSearch() {
+    document.getElementById("search").reset();
+    document.getElementById("results").innerHTML = currentTableStart;
 }
 
 function formatManaCost(cost) {

@@ -51,6 +51,7 @@ body {
 
 #search {
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .manaImg {
@@ -142,3 +143,4 @@ tr:hover {
 .cardIMG .cardStats .card {
     display: inline
 }
+
