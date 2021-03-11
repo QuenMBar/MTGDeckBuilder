@@ -254,7 +254,15 @@ function displayCard(cardObj, deckContainer) {
     let cardButton = document.createElement("button");
     cardButton.type = "button";
     cardButton.className = "collapsible";
-    cardButton.innerHTML = `${cardObj.name}    Mana: ${cardObj.manaCost}`;
+
+    let cardName = document.createElement("h2");
+    cardName.textContent = cardObj.name;
+    cardName.className = "cardName";
+    let cardMana = document.createElement("h3");
+    cardMana.innerHTML = `Mana: ${cardObj.manaCost}`;
+    cardMana.className = "cardMana";
+
+    cardButton.append(cardName, cardMana);
 
     let cardDiv = document.createElement("div");
     cardDiv.className = "content";
