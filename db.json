@@ -1,6 +1,16 @@
 {
   "deck": [
     {
+      "name": "Default",
+      "id": 1
+    },
+    {
+      "name": "Deck Name",
+      "id": 2
+    }
+  ],
+  "cards": [
+    {
       "name": "Contaminated Bond",
       "manaCost": "1 <img class=\"manaImg\" src=\"./assets/Black.png\">",
       "type": "Enchantment",
@@ -11,7 +21,8 @@
       "image": "http://127.0.0.1:5500/undefined",
       "text": "Enchant creature (Target a creature as you cast this. This card enters the battlefield attached to that creature.)\nWhenever enchanted creature attacks or blocks, its controller loses 3 life.",
       "flavor": "\"My favorite curses are those that manifest slowly, blackening the soul in ways the victim cannot hope to understand.\"\n—Erissa, bog witch",
-      "id": 1
+      "id": 1,
+      "deckId": 1
     },
     {
       "name": "Cloud Sprite",
@@ -24,7 +35,8 @@
       "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132069&type=card",
       "text": "Flying (This creature can't be blocked except by creatures with flying or reach.)\nCloud Sprite can block only creatures with flying.",
       "flavor": "The delicate sprites carry messages for Saprazzans, but they refuse to land in Mercadia City's filthy markets.",
-      "id": 2
+      "id": 2,
+      "deckId": 2
     },
     {
       "name": "Air Elemental",
@@ -37,7 +49,32 @@
       "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129459&type=card",
       "text": "Flying",
       "flavor": "\"The East Wind, an interloper in the dominions of Westerly Weather, is an impassive-faced tyrant with a sharp poniard held behind his back for a treacherous stab.\"\n—Joseph Conrad, *The Mirror of the Sea*",
-      "id": 3
+      "id": 3,
+      "deckId": 2
+    },
+    {
+      "name": "Academy Researchers",
+      "manaCost": "1 <img class=\"manaImg\" src=\"./assets/Blue.png\"> <img class=\"manaImg\" src=\"./assets/Blue.png\">",
+      "type": "Creature",
+      "power": "2",
+      "toughness": "2",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132072&type=card",
+      "deckId": "2",
+      "id": 4
+    },
+    {
+      "name": "Ancestor's Chosen",
+      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Creature",
+      "power": "4",
+      "toughness": "4",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
+      "deckId": 2,
+      "id": 5
     }
   ]
 }
