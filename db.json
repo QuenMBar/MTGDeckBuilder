@@ -53,18 +53,6 @@
       "deckId": 2
     },
     {
-      "name": "Academy Researchers",
-      "manaCost": "1 <img class=\"manaImg\" src=\"./assets/Blue.png\"> <img class=\"manaImg\" src=\"./assets/Blue.png\">",
-      "type": "Creature",
-      "power": "2",
-      "toughness": "2",
-      "set": "10E",
-      "rarity": "Uncommon",
-      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132072&type=card",
-      "deckId": "2",
-      "id": 4
-    },
-    {
       "name": "Ancestor's Chosen",
       "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
       "type": "Creature",
@@ -74,7 +62,7 @@
       "rarity": "Uncommon",
       "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
       "deckId": 2,
-      "id": 5
+      "id": 4
     }
   ]
 }
