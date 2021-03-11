@@ -207,3 +207,21 @@ tr:hover {
     font-size:large;
 }
 
+form > input {
+    display: inline-block;
+    background-color: rgb(92, 92, 92);
+    color: white;
+}
+
+input[type="submit"] {
+    background-color: white;
+    color: black;
+}
+
+form>input::placeholder {
+    color: rgb(196, 196, 196);
+}
+
+.colorDiv {
+    display: inline-block;
+}
