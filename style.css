@@ -225,3 +225,9 @@ form>input::placeholder {
 .colorDiv {
     display: inline-block;
 }
+
+#create-deck,
+#decklist {
+    background-color: rgb(82, 82, 82);
+    color: white;
+}

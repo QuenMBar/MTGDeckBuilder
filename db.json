@@ -1,8 +1,12 @@
 {
   "deck": [
     {
-      "name": "Defualt Deck",
+      "name": "Default Deck",
       "id": 1
+    },
+    {
+      "name": "New Deck",
+      "id": 2
     }
   ],
   "cards": [
@@ -116,6 +120,174 @@
       "flavor": "When your enemies are denied soldiers, they are denied victory.",
       "deckId": 1,
       "id": 8
+    },
+    {
+      "name": "Bandage",
+      "manaCost": " <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132106&type=card",
+      "text": "Prevent the next 1 damage that would be dealt to any target this turn.\nDraw a card.",
+      "flavor": "Life is measured in inches. To a healer, every one of those inches is precious.",
+      "deckId": 2,
+      "id": 9
+    },
+    {
+      "name": "Beacon of Immortality",
+      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Rare",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130553&type=card",
+      "text": "Double target player's life total. Shuffle Beacon of Immortality into its owner's library.",
+      "flavor": "The cave floods with light. A thousand rays shine forth and meld into one.",
+      "deckId": 2,
+      "id": 10
+    },
+    {
+      "name": "Beacon of Immortality",
+      "manaCost": "5 <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Rare",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130553&type=card",
+      "text": "Double target player's life total. Shuffle Beacon of Immortality into its owner's library.",
+      "flavor": "The cave floods with light. A thousand rays shine forth and meld into one.",
+      "deckId": 2,
+      "id": 11
+    },
+    {
+      "name": "Benalish Knight",
+      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Creature",
+      "power": "2",
+      "toughness": "2",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://127.0.0.1:5500/undefined",
+      "text": "Flash (You may cast this spell any time you could cast an instant.)\nFirst strike (This creature deals combat damage before creatures without first strike.)",
+      "flavor": "\"We called them 'armored lightning.'\"\n—Gerrard of the *Weatherlight*",
+      "deckId": 2,
+      "id": 12
+    },
+    {
+      "name": "Cho-Manno, Revolutionary",
+      "manaCost": "2 <img class=\"manaImg\" src=\"./assets/White.png\"> <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Creature",
+      "power": "2",
+      "toughness": "2",
+      "set": "10E",
+      "rarity": "Rare",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130554&type=card",
+      "text": "Prevent all damage that would be dealt to Cho-Manno, Revolutionary.",
+      "flavor": "\"Mercadia's masks can no longer hide the truth. Our day has come at last.\"",
+      "deckId": 2,
+      "id": 13
+    },
+    {
+      "name": "Contaminated Bond",
+      "manaCost": "1 <img class=\"manaImg\" src=\"./assets/Black.png\">",
+      "type": "Enchantment",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://127.0.0.1:5500/undefined",
+      "text": "Enchant creature (Target a creature as you cast this. This card enters the battlefield attached to that creature.)\nWhenever enchanted creature attacks or blocks, its controller loses 3 life.",
+      "flavor": "\"My favorite curses are those that manifest slowly, blackening the soul in ways the victim cannot hope to understand.\"\n—Erissa, bog witch",
+      "deckId": 2,
+      "id": 14
+    },
+    {
+      "name": "Demystify",
+      "manaCost": " <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129524&type=card",
+      "text": "Destroy target enchantment.",
+      "flavor": "\"Illusion is a crutch for those with no grounding in reality.\"\n—Cho-Manno",
+      "deckId": 2,
+      "id": 15
+    },
+    {
+      "name": "Hail of Arrows",
+      "manaCost": "X <img class=\"manaImg\" src=\"./assets/White.png\">",
+      "type": "Instant",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=132107&type=card",
+      "text": "Hail of Arrows deals X damage divided as you choose among any number of target attacking creatures.",
+      "flavor": "\"Do not let a single shaft loose until my word. And when I give that word, do not leave a single shaft in Eiganjo.\"\n—General Takeno",
+      "deckId": 1,
+      "id": 16
+    },
+    {
+      "name": "Beacon of Unrest",
+      "manaCost": "3 <img class=\"manaImg\" src=\"./assets/Black.png\"> <img class=\"manaImg\" src=\"./assets/Black.png\">",
+      "type": "Sorcery",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Rare",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=135270&type=card",
+      "text": "Put target artifact or creature card from a graveyard onto the battlefield under your control. Shuffle Beacon of Unrest into its owner's library.",
+      "flavor": "A vertical scream pierces the night air and echoes doom through the clouds.",
+      "deckId": 2,
+      "id": 17
+    },
+    {
+      "name": "Sea Monster",
+      "manaCost": "4 <img class=\"manaImg\" src=\"./assets/Blue.png\"> <img class=\"manaImg\" src=\"./assets/Blue.png\">",
+      "type": "Creature",
+      "power": "6",
+      "toughness": "6",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129719&type=card",
+      "text": "Sea Monster can't attack unless defending player controls an Island.",
+      "flavor": "It's easy to believe the monster is a myth—until you feel three hundred thousand pounds of myth crashing down on your ship.",
+      "deckId": 2,
+      "id": 18
+    },
+    {
+      "name": "Fear",
+      "manaCost": " <img class=\"manaImg\" src=\"./assets/Black.png\"> <img class=\"manaImg\" src=\"./assets/Black.png\">",
+      "type": "Enchantment",
+      "power": "",
+      "toughness": "",
+      "set": "10E",
+      "rarity": "Common",
+      "image": "http://127.0.0.1:5500/undefined",
+      "text": "Enchant creature (Target a creature as you cast this. This card enters the battlefield attached to that creature.)\nEnchanted creature has fear. (It can't be blocked except by artifact creatures and/or black creatures.)",
+      "flavor": "\"Even the bravest of warriors yet knows the dark clutch of fright upon his stalwart heart.\"\n—Lim-Dûl the Necromancer",
+      "deckId": 1,
+      "id": 19
+    },
+    {
+      "name": "Sky Weaver",
+      "manaCost": "1 <img class=\"manaImg\" src=\"./assets/Blue.png\">",
+      "type": "Creature",
+      "power": "2",
+      "toughness": "1",
+      "set": "10E",
+      "rarity": "Uncommon",
+      "image": "http://127.0.0.1:5500/undefined",
+      "text": "{2}: Target white or black creature gains flying until end of turn. (It can't be blocked except by creatures with flying or reach.)",
+      "flavor": "\"Let my wisdom give you wings.\"",
+      "deckId": 2,
+      "id": 20
     }
   ]
 }
