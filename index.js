@@ -1,9 +1,3 @@
-let whiteMana = "./assets/White.png";
-let blueMana = "./assets/Blue.png";
-let blackMana = "./assets/Black.png";
-let redMana = "./assets/Red.png";
-let greenMana = "./assets/Green.png";
-let colorlessMana = "./assets/Colorless.png";
 let baseURL = "https://api.magicthegathering.io/v1/cards?page=";
 let pageNum = 1;
 let extraURL = "";
@@ -177,35 +171,27 @@ function clearSearch() {
 
 function formatManaCost(cost) {
     let result = "";
+    let temp = "";
     let cleanCost = [];
-    let parts = cost.split("");
-    for (let i = 0; i < parts.length; i++) {
-        if (!"{}".includes(parts[i])) {
-            cleanCost.push(parts[i]);
+    for (let i = 0; i < cost.length; i++) {
+        if (cost[i] == "{") {
+            temp = "";
+        }
+        else if (cost[i] == "}") {
+            cleanCost.push(temp);
+        }
+        else {
+            if (cost[i] != "/") {
+                temp += cost[i];
+            }
         }
     }
     for (let i = 0; i < cleanCost.length; i++) {
-        switch (cleanCost[i]) {
-            case "W":
-                result += ` <img class="manaImg" src=${whiteMana}>`;
-                break;
-            case "U":
-                result += ` <img class="manaImg" src=${blueMana}>`;
-                break;
-            case "B":
-                result += ` <img class="manaImg" src=${blackMana}>`;
-                break;
-            case "R":
-                result += ` <img class="manaImg" src=${redMana}>`;
-                break;
-            case "G":
-                result += ` <img class="manaImg" src=${greenMana}>`;
-                break;
-            case "C":
-                result += ` <img class="manaImg" src=${colorlessMana}>`;
-                break;
-            default:
-                result += cleanCost[i] + "";
+        if (!"1234567890X".includes(cleanCost[i])) {
+            result += ` <img class="manaImg" src=./assets/colors/${cleanCost[i]}.png>`;
+        }
+        else {
+            result += cleanCost[i] + " ";
         }
     }
     return result;
