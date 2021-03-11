@@ -149,50 +149,53 @@ function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rar
  * @param {HTMLTableElement} table The table it is being appended to
  */
 function showCard(card, table) {
-    let row = document.createElement("tr");
+    if (card.multiverseid !== undefined) {
 
-    let cardName = document.createElement("td");
-    cardName.textContent = card.name;
-    cardName.data = {
-        text: card.text,
-        flavor: card.flavor,
-    };
-    cardName.className = "img-tooltip";
+        let row = document.createElement("tr");
 
-    let cardImg = document.createElement("img");
-    cardImg.src = card.imageUrl;
-    cardImg.alt = card.name;
-    cardImg.className = "card-preview";
-    cardName.appendChild(cardImg);
+        let cardName = document.createElement("td");
+        cardName.textContent = card.name;
+        cardName.data = {
+            text: card.text,
+            flavor: card.flavor,
+        };
+        cardName.className = "img-tooltip";
 
-    let manaCost = document.createElement("td");
-    if (card.types[0] != "Land") {
-        manaCost.innerHTML = formatManaCost(card.manaCost);
+        let cardImg = document.createElement("img");
+        cardImg.src = card.imageUrl;
+        cardImg.alt = card.name;
+        cardImg.className = "card-preview";
+        cardName.appendChild(cardImg);
+
+        let manaCost = document.createElement("td");
+        if (card.types[0] != "Land") {
+            manaCost.innerHTML = formatManaCost(card.manaCost);
+        }
+
+        let cardType = document.createElement("td");
+        cardType.textContent = card.types;
+
+        let cardPower = document.createElement("td");
+        cardPower.textContent = card.power;
+
+        let cardToughness = document.createElement("td");
+        cardToughness.textContent = card.toughness;
+
+        let cardSet = document.createElement("td");
+        cardSet.textContent = card.set;
+
+        let cardRarity = document.createElement("td");
+        cardRarity.textContent = card.rarity;
+
+        let addCard = document.createElement("button");
+        addCard.textContent = "+";
+        addCard.id = "add-card";
+        addCard.addEventListener("click", addCardToDeck);
+
+        row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
+
+        table.appendChild(row);
     }
-
-    let cardType = document.createElement("td");
-    cardType.textContent = card.types;
-
-    let cardPower = document.createElement("td");
-    cardPower.textContent = card.power;
-
-    let cardToughness = document.createElement("td");
-    cardToughness.textContent = card.toughness;
-
-    let cardSet = document.createElement("td");
-    cardSet.textContent = card.set;
-
-    let cardRarity = document.createElement("td");
-    cardRarity.textContent = card.rarity;
-
-    let addCard = document.createElement("button");
-    addCard.textContent = "+";
-    addCard.id = "add-card";
-    addCard.addEventListener("click", addCardToDeck);
-
-    row.append(cardName, manaCost, cardType, cardPower, cardToughness, cardSet, cardRarity, addCard);
-
-    table.appendChild(row);
 }
 
 /**
