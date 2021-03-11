@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("decklist").addEventListener("change", displayDeck)
     
     getDeck();
+    createDeckOptions();
 
     // Undo this later, but dont need to make so many page requests rn
     // getPageData();
@@ -337,11 +338,6 @@ function removeCard(e) {
 
 function newDeckList(){
     let deckname = window.prompt("Enter Deck Name", "Deck Name")
-    let select = document.getElementById("decklist")
-    let opt = document.createElement("option")
-    opt.value = deckname
-    opt.textContent = deckname
-    select.appendChild(opt)
     let deckUrl = "http://localhost:3000/deck"
     let deck = {name: deckname}
     let configObj = {
@@ -354,9 +350,8 @@ function newDeckList(){
     }
     fetch(deckUrl, configObj)
     .then(r => r.json())
-    .then(deck => {
-        opt.value = deck.id
-    })
+    .then(deck => buildDeckOption(deck)
+)
 }
 
 function displayDeck(){
@@ -366,4 +361,20 @@ function displayDeck(){
     .then((cards) => {
         displayAllCards(cards);
     });
+}
+
+function buildDeckOption(deck){
+    let select = document.getElementById("decklist")
+    let opt = document.createElement("option")
+    opt.value = deck.id
+    opt.textContent = deck.name
+    select.appendChild(opt)
+}
+
+function createDeckOptions(){
+    fetch("http://localhost:3000/deck")
+    .then(r => r.json())
+    .then(decks => {
+        decks.forEach(deck => buildDeckOption(deck))
+    })
 }
