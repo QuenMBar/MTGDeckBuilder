@@ -1,8 +1,10 @@
+// Initialize and set global variables
 let baseURL = "https://api.magicthegathering.io/v1/cards?page=";
 let pageNum = 1;
 let extraURL = "";
 let currentTableStart = ``;
 
+// Once the website is loaded, add event listeners and populate the deck initially
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search").addEventListener("submit", onFormSubmit);
 
@@ -19,12 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
     getDeck();
     createDeckOptions();
 
-    // Undo this later, but dont need to make so many page requests rn
-    // getPageData();
+    getPageData();
 
+    // Saves the table headers so they can be redone later
     currentTableStart = document.getElementById("results").innerHTML;
 });
 
+/**
+ * Gets the new page of card results
+ * @param {boolean} direction True increments the page and false decrements it
+ */
 function page(direction) {
     if (direction) {
         pageNum++;
@@ -35,6 +41,11 @@ function page(direction) {
     }
 }
 
+/**
+ * When the form is submitted, parse the colors selected, then parse the url from the given
+ * inputs and save it globally, and then call to get the page data
+ * @param {Event} e
+ */
 function onFormSubmit(e) {
     e.preventDefault();
     let colors = [];
@@ -70,6 +81,9 @@ function onFormSubmit(e) {
     getPageData();
 }
 
+/**
+ * Using the global url, make an API request to the server
+ */
 function getPageData() {
     fetch(baseURL + pageNum.toString() + extraURL)
         .then((response) => response.json())
@@ -80,6 +94,18 @@ function getPageData() {
         });
 }
 
+/**
+ * Parses the url from the inputs given by the form.  Saves this new url globally to be used by the fetch
+ * @param {string} name
+ * @param {string[]} color Array of all the colors selected
+ * @param {string} orAnd Whether were looking for both or either of the colors.  Defaults to or
+ * @param {string} manaCost
+ * @param {string} type
+ * @param {string} power
+ * @param {string} toughness
+ * @param {string} set
+ * @param {string} rarity
+ */
 function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rarity) {
     // console.log(`${name}, ${color}, ${orAnd}, ${manaCost}, ${type}, ${power}, ${toughness}, ${set}, ${rarity}`);
     extraURL = "";
@@ -117,6 +143,11 @@ function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rar
     }
 }
 
+/**
+ * Creates a row for the card and appends it to the table
+ * @param {Object} card A card object gotten from the api call
+ * @param {HTMLTableElement} table The table it is being appended to
+ */
 function showCard(card, table) {
     let row = document.createElement("tr");
 
@@ -164,11 +195,19 @@ function showCard(card, table) {
     table.appendChild(row);
 }
 
+/**
+ * Clears the data from the page
+ */
 function clearSearch() {
     document.getElementById("search").reset();
     document.getElementById("results").innerHTML = currentTableStart;
 }
 
+/**
+ * Converts the returned mana cost from the api to use the mana images instead of letters
+ * @param {string} cost Mana cost gotten from API
+ * @returns {HTMLElement} HTML element with a number or a picture
+ */
 function formatManaCost(cost) {
     let result = "";
     let temp = "";
@@ -176,11 +215,9 @@ function formatManaCost(cost) {
     for (let i = 0; i < cost.length; i++) {
         if (cost[i] == "{") {
             temp = "";
-        }
-        else if (cost[i] == "}") {
+        } else if (cost[i] == "}") {
             cleanCost.push(temp);
-        }
-        else {
+        } else {
             if (cost[i] != "/") {
                 temp += cost[i];
             }
@@ -192,6 +229,9 @@ function formatManaCost(cost) {
     return result;
 }
 
+/**
+ * Logic for the deck tab.  Should be a callback for when the tab is clicked
+ */
 function displayDeckTab() {
     let defaultTab = document.getElementById("main-tab");
     let deckDiv = document.getElementById("deck-div");
@@ -208,6 +248,9 @@ function displayDeckTab() {
     }
 }
 
+/**
+ * Logic for the main tab.  Should be a callback for when the tab is clicked
+ */
 function displayMainTab() {
     let defaultTab = document.getElementById("main-tab");
     let deckDiv = document.getElementById("deck-div");
@@ -219,6 +262,11 @@ function displayMainTab() {
     }
 }
 
+/**
+ * Logic for the collapsible html elements.  Should be called on the button part
+ * of the element every time one is created
+ * @param {HTMLButtonElement} collapse Button for the collapsible HTML element
+ */
 function enableSingleCollapsible(collapse) {
     collapse.addEventListener("click", function () {
         this.classList.toggle("active");
@@ -231,6 +279,11 @@ function enableSingleCollapsible(collapse) {
     });
 }
 
+/**
+ * Uses a card to create the compatibles that populate the deck tab
+ * @param {Object} cardObj Gotten from the local database
+ * @param {HTMLDivElement} deckContainer
+ */
 function displayCard(cardObj, deckContainer) {
     let cardButton = document.createElement("button");
     cardButton.type = "button";
@@ -298,6 +351,10 @@ function displayCard(cardObj, deckContainer) {
     enableSingleCollapsible(cardButton);
 }
 
+/**
+ * Uses an array of cards from the database to rewrite the deck tab
+ * @param {Object[]} cardsArray
+ */
 function displayAllCards(cardsArray) {
     let deckContainer = document.getElementById("cardsDiv");
     deckContainer.innerHTML = "";
@@ -306,6 +363,11 @@ function displayAllCards(cardsArray) {
     });
 }
 
+/**
+ * When the add button is pressed, adds the corresponding card to the database,
+ * and then adds it to the deck
+ * @param {Event} e
+ */
 function addCardToDeck(e) {
     let deckUrl = "http://localhost:3000/cards";
     let tRow = e.target.parentElement.querySelectorAll("td");
@@ -340,6 +402,9 @@ function addCardToDeck(e) {
         });
 }
 
+/**
+ * Gets the main deck from the database and displays it
+ */
 function getDeck() {
     fetch("http://localhost:3000/cards?deckId=1")
         .then((r) => r.json())
@@ -348,6 +413,10 @@ function getDeck() {
         });
 }
 
+/**
+ * Removes a card from the Dom and the database
+ * @param {Event} e
+ */
 function removeCard(e) {
     let url = `http://localhost:3000/cards/${e.target.id}`;
     let parent = e.target.parentElement;
@@ -357,6 +426,9 @@ function removeCard(e) {
     fetch(url, { method: "DELETE" });
 }
 
+/**
+ * Creates a new deck to add cards to.  Makes a pop up for deck name
+ */
 function newDeckList() {
     let deckname = window.prompt("Enter Deck Name", "Deck Name");
     let deckUrl = "http://localhost:3000/deck";
@@ -374,6 +446,9 @@ function newDeckList() {
         .then((deck) => buildDeckOption(deck));
 }
 
+/**
+ * Displays a given deck of cards
+ */
 function displayDeck() {
     let select = document.getElementById("decklist").selectedOptions;
     fetch(`http://localhost:3000/cards?deckId=${select[0].value}`)
@@ -383,6 +458,11 @@ function displayDeck() {
         });
 }
 
+/**
+ * Adds the deck name to the drop down
+ * @param {Object} deck
+ * @param {string} deck.name
+ */
 function buildDeckOption(deck) {
     let select = document.getElementById("decklist");
     let opt = document.createElement("option");
@@ -391,6 +471,9 @@ function buildDeckOption(deck) {
     select.appendChild(opt);
 }
 
+/**
+ * Loads in the deck names for the drop down
+ */
 function createDeckOptions() {
     fetch("http://localhost:3000/deck")
         .then((r) => r.json())
