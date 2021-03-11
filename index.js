@@ -137,7 +137,9 @@ function showCard(card, table) {
     cardName.appendChild(cardImg);
 
     let manaCost = document.createElement("td");
-    manaCost.innerHTML = formatManaCost(card.manaCost);
+    if (card.types[0] != "Land") {
+        manaCost.innerHTML = formatManaCost(card.manaCost);
+    }
 
     let cardType = document.createElement("td");
     cardType.textContent = card.types;
@@ -203,7 +205,6 @@ function formatManaCost(cost) {
 function displayDeckTab() {
     let defaultTab = document.getElementById("main-tab");
     let deckDiv = document.getElementById("deck-div");
-    // console.log(defaultTab.style.display)
     if (defaultTab.style.display == "") {
         defaultTab.style.display = "none";
         deckDiv.style.display = "block";
