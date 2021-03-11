@@ -187,12 +187,7 @@ function formatManaCost(cost) {
         }
     }
     for (let i = 0; i < cleanCost.length; i++) {
-        if (!"1234567890X".includes(cleanCost[i])) {
-            result += ` <img class="manaImg" src=./assets/colors/${cleanCost[i]}.png>`;
-        }
-        else {
-            result += cleanCost[i] + " ";
-        }
+        result += ` <img class="manaImg" src=./assets/symbols/${cleanCost[i]}.png>`;
     }
     return result;
 }
@@ -354,7 +349,7 @@ function getDeck() {
 }
 
 function removeCard(e) {
-    let url = `http://localhost:3000/deck/${e.target.id}`;
+    let url = `http://localhost:3000/cards/${e.target.id}`;
     let parent = e.target.parentElement;
     let parentBttn = e.target.parentElement.previousElementSibling;
     parent.remove();
