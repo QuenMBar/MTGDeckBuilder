@@ -529,7 +529,7 @@ async function createRandomDeck() {
             body: JSON.stringify(newCard),
         };
         await fetch(deckUrl, configObj);
-        await sleep(3);
+        await sleep(5);
     }
 }
 
