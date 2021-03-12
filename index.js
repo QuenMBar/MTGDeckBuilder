@@ -309,10 +309,11 @@ function displayCard(cardObj, deckContainer) {
     cardIMG.className = "cardIMG";
 
     let cardDesc = document.createElement("div");
-    if (cardObj.flavor === undefined) {
-        cardDesc.innerHTML = `<p class="cardText">${cardObj.text}</p>`;
-    } else {
-        cardDesc.innerHTML = `<p class="cardText">${cardObj.text}</p> <p>${cardObj.flavor}</p>`;
+    if (cardObj.text != undefined) {
+        cardDesc.innerHTML += `<p class="cardText">${cardObj.text}</p>`;
+    }
+    if (cardObj.flavor != undefined) {
+        cardDesc.innerHTML += ` <p>${cardObj.flavor}</p>`;
     }
     cardDesc.className = "cardDesc";
 
