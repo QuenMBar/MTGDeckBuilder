@@ -437,22 +437,26 @@ function removeCard(e) {
 function newDeckList() {
     return new Promise((resolve) => {
         let deckname = window.prompt("Enter Deck Name", "Deck Name");
-        let deckUrl = "http://localhost:3000/deck";
-        let deck = { name: deckname };
-        let configObj = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(deck),
-        };
-        fetch(deckUrl, configObj)
-            .then((r) => r.json())
-            .then((deck) => {
-                buildDeckOption(deck);
-                resolve(deck.id);
-            });
+        if (deckname != null) {
+            let deckUrl = "http://localhost:3000/deck";
+            let deck = { name: deckname };
+            let configObj = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(deck),
+            };
+            fetch(deckUrl, configObj)
+                .then((r) => r.json())
+                .then((deck) => {
+                    buildDeckOption(deck);
+                    resolve(deck.id);
+                });
+        } else {
+            resolve(-1);
+        }
     });
 }
 
@@ -501,36 +505,38 @@ async function createRandomDeck() {
     let wrappedData = await response.json();
     let data = wrappedData.cards;
     let deckID = await newDeckList();
-    let deckUrl = "http://localhost:3000/cards";
-    for (let i = 0; i < 60; i++) {
-        let manaCostHTML = ``;
-        if (data[i].manaCost != "Land" && data[i].manaCost != undefined) {
-            manaCostHTML = formatManaCost(data[i].manaCost);
+    if (deckID != -1) {
+        let deckUrl = "http://localhost:3000/cards";
+        for (let i = 0; i < 60; i++) {
+            let manaCostHTML = ``;
+            if (data[i].manaCost != "Land" && data[i].manaCost != undefined) {
+                manaCostHTML = formatManaCost(data[i].manaCost);
+            }
+            let newCard = {
+                name: data[i].name,
+                manaCost: manaCostHTML,
+                type: data[i].type,
+                power: data[i].power,
+                toughness: data[i].toughness,
+                set: data[i].set,
+                rarity: data[i].rarity,
+                image: data[i].imageUrl,
+                text: data[i].text,
+                flavor: data[i].flavor,
+                deckId: deckID,
+            };
+            console.log(newCard);
+            let configObj = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(newCard),
+            };
+            await fetch(deckUrl, configObj);
+            await sleep(5);
         }
-        let newCard = {
-            name: data[i].name,
-            manaCost: manaCostHTML,
-            type: data[i].type,
-            power: data[i].power,
-            toughness: data[i].toughness,
-            set: data[i].set,
-            rarity: data[i].rarity,
-            image: data[i].imageUrl,
-            text: data[i].text,
-            flavor: data[i].flavor,
-            deckId: deckID,
-        };
-        console.log(newCard);
-        let configObj = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(newCard),
-        };
-        await fetch(deckUrl, configObj);
-        await sleep(5);
     }
 }
 
