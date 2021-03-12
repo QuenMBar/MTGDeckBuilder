@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/QuenMBar/MTGDeckBuilder/issues"
   },
-  "homepage": "https://github.com/QuenMBar/MTGDeckBuilder#readme"
+  "homepage": "https://github.com/QuenMBar/MTGDeckBuilder#readme",
+  "devDependencies": {
+    "jsdoc-to-markdown": "^7.0.0"
+  }
 }
