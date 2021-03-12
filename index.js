@@ -151,7 +151,6 @@ function parseURL(name, color, orAnd, manaCost, type, power, toughness, set, rar
  */
 function showCard(card, table) {
     if (card.multiverseid !== undefined) {
-
         let row = document.createElement("tr");
 
         let cardName = document.createElement("td");
@@ -432,6 +431,7 @@ function removeCard(e) {
 
 /**
  * Creates a new deck to add cards to.  Makes a pop up for deck name
+ * @return {Promise<number>} Deck ID
  */
 function newDeckList() {
     return new Promise((resolve) => {
@@ -491,6 +491,10 @@ function createDeckOptions() {
         });
 }
 
+/**
+ * Creates a random deck of 60 items and saves it to the database.
+ * Sleep is called to not overwhelm the server with rapid post requests.
+ */
 async function createRandomDeck() {
     let response = await fetch("https://api.magicthegathering.io/v1/cards?page=1&random=true");
     let wrappedData = await response.json();
@@ -529,6 +533,11 @@ async function createRandomDeck() {
     }
 }
 
+/**
+ * Sleeps for the amount of ms specified
+ * @param {number} ms
+ * @returns {promise} When the program is finished
+ */
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
